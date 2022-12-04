@@ -1,7 +1,6 @@
-import { readFile } from 'fs/promises';
+import { getPuzzleInput } from '../../utils.js';
 
-const src = './1_calories/data.txt';
-const text = (await readFile(src)).toString();
+const text = await getPuzzleInput(import.meta.url);
 
 const result = Math.max(
   ...text
