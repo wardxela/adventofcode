@@ -1,4 +1,6 @@
-import { readFile } from 'fs/promises';
+import { getPuzzleInput } from '../../utils.js';
+
+const data = await getPuzzleInput(import.meta.url);
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -9,8 +11,6 @@ for (const letter of ALPHABET) {
 }
 
 const sum = (a: number, b: number) => a + b;
-
-const data = (await readFile('./2022/3_rucksacks/input.txt')).toString();
 
 const toUniqueOnly = (text: string) => [...new Set(text)].join('');
 

@@ -1,6 +1,6 @@
-import { readFile } from 'fs/promises';
+import { getPuzzleInput } from '../../utils.js';
 
-const data = (await readFile('./2022/4_overlaps/input.txt')).toString();
+const data = await getPuzzleInput(import.meta.url);
 
 const result = data
   .split('\n')

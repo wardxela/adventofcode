@@ -1,11 +1,10 @@
-import { readFile } from 'fs/promises';
+import { getPuzzleInput } from '../../utils.js';
 
-const src = './1_calories/data.txt';
-const text = (await readFile(src)).toString();
+const data = await getPuzzleInput(import.meta.url);
 
 const sum = (a: number, b: number) => a + b;
 
-const result = text
+const result = data
   .split('\n\n')
   .map(elf =>
     elf
