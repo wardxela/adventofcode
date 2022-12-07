@@ -11,7 +11,6 @@
     // "reactNamespace": "",                             /* Specify the object invoked for 'createElement'. This only applies when targeting 'react' JSX emit. */
     // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
     // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
-    "noUnusedLocals": true,
     "module": "ES2022" /* Specify what module code is generated. */,
     "moduleResolution": "Node16" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "noEmit": true,
