@@ -178,3 +178,5 @@ const solution1 = problem1(sizes);
 const solution2 = Math.min(...problem2(sizes));
 
 console.log(solution2);
+fileSystem.cd('/');
+fileSystem.display();
