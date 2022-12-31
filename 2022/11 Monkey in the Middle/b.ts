@@ -7,16 +7,16 @@ type Operator = '+' | '-' | '*' | '/';
 
 type Operation = {
   operator: Operator;
-  operand: bigint | 'old';
+  operand: number | 'old';
 };
 
 class Monkey {
   public inspectCounter = 0;
   constructor(
     public id: number,
-    private items: bigint[],
+    private items: number[],
     private operation: Operation,
-    private divisibleBy: number,
+    public divisibleBy: number,
     private trueMonkeyId: number,
     private falseMonkeyId: number
   ) {}
@@ -31,29 +31,29 @@ class Monkey {
           level,
           this.operation.operand === 'old' ? level : this.operation.operand,
           this.operation.operator
-        ) / 3n;
+        ) % controller.commonDivider;
       controller.sendItem(
         level,
-        level % BigInt(this.divisibleBy) === 0n
-          ? this.trueMonkeyId
-          : this.falseMonkeyId
+        level % this.divisibleBy === 0 ? this.trueMonkeyId : this.falseMonkeyId
       );
     });
   }
 
-  addItem(value: bigint) {
+  addItem(value: number) {
     this.items.push(value);
   }
 }
 
 class MonkeyController {
   private monkeyMap: Record<number, Monkey>;
+  public commonDivider: number;
 
   constructor(monkeys: Monkey[]) {
     this.monkeyMap = monkeys.reduce<Record<number, Monkey>>((map, monkey) => {
       map[monkey.id] = monkey;
       return map;
     }, {});
+    this.commonDivider = monkeys.reduce((a, m) => a * m.divisibleBy, 1);
   }
 
   debug() {
@@ -68,7 +68,7 @@ class MonkeyController {
     }
   }
 
-  sendItem(value: bigint, toId: number) {
+  sendItem(value: number, toId: number) {
     this.monkeyMap[toId].addItem(value);
   }
 
@@ -81,7 +81,7 @@ class MonkeyController {
   }
 }
 
-function calc(op1: bigint, op2: bigint, operator: Operator) {
+function calc(op1: number, op2: number, operator: Operator) {
   switch (operator) {
     case '+':
       return op1 + op2;
@@ -106,10 +106,10 @@ const monkeyController = new MonkeyController(
         items
           .trim()
           .split(', ')
-          .map(v => BigInt(v)),
+          .map(v => +v),
         {
           operator: operator as Operator,
-          operand: operand === 'old' ? operand : BigInt(operand),
+          operand: operand === 'old' ? operand : +operand,
         },
         +divisibleBy,
         +trueMonkeyId,
@@ -119,7 +119,7 @@ const monkeyController = new MonkeyController(
   )
 );
 
-monkeyController.play(20);
+monkeyController.play(10000);
 const result1 = monkeyController.getMonkeyBusinessLevel();
 monkeyController.debug();
 console.log(result1);
